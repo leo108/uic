@@ -5,6 +5,7 @@
     <property name="source" value="1.7"/>
 	<property name="encoding" value="UTF-8"/>
     <property name="build.classes.dir" value="web/WEB-INF/classes"/>
+    <property name="warFileName" value="uic.war"></property>  
 	
     <path id="uic.classpath">
         <pathelement location="${build.classes.dir}"/>
@@ -21,7 +22,7 @@
         </copy>
     </target>
 	
-    <target name="build" depends="init">
+    <target name="compile" depends="init">
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac includeantruntime="false" debug="${debug}" encoding="${encoding}" destdir="${build.classes.dir}" source="${source}" target="${target}">
             <src path="conf"/>
@@ -29,6 +30,19 @@
             <src path="frame"/>
             <classpath refid="uic.classpath"/>
         </javac>
+    </target>
+
+    <target name="build" depends="compile">
+        <delete dir="${basedir}/${warFileName}" />
+        <war destfile="${basedir}/${warFileName}" webxml="${basedir}/web/WEB-INF/web.xml">
+            <fileset dir="${basedir}/web">
+                <include name="**/**.*" />
+                <exclude name="**/*.jar"/>
+                <exclude name="**/*.class"/>
+            </fileset>
+            <lib dir="${basedir}/web/WEB-INF/lib" />
+            <classes dir="${basedir}/web/WEB-INF/classes" />
+        </war>
     </target>
 	
     <target name="clean">
