@@ -5,15 +5,13 @@
     <property name="source" value="1.7"/>
 	<property name="encoding" value="UTF-8"/>
     <property name="build.classes.dir" value="web/WEB-INF/classes"/>
-    <property name="outputDir" value="${basedir}/output"></property>  
-    <property name="warFileName" value="uic.war"></property>  
 	
     <path id="uic.classpath">
         <pathelement location="${build.classes.dir}"/>
 		<fileset dir="lib" includes="*.jar" />
 		<fileset dir="web/WEB-INF/lib" includes="*.jar" />
     </path>
-    <mkdir dir="${outputDir}" />
+
     <target name="init" depends="clean">
         <mkdir dir="${build.classes.dir}"/>
         <copy includeemptydirs="false" todir="${build.classes.dir}">
@@ -22,8 +20,8 @@
             <fileset dir="conf" excludes="**/*.java"/>
         </copy>
     </target>
-	
-    <target name="compile" depends="init">
+
+    <target name="build" depends="init">
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac includeantruntime="false" debug="${debug}" encoding="${encoding}" destdir="${build.classes.dir}" source="${source}" target="${target}">
             <src path="conf"/>
@@ -33,19 +31,6 @@
         </javac>
     </target>
 
-    <target name="build" depends="compile">
-        <delete dir="${outputDir}/${warFileName}" />
-        <war destfile="${outputDir}/${warFileName}" webxml="${basedir}/web/WEB-INF/web.xml">
-            <fileset dir="${basedir}/web">
-                <include name="**/**.*" />
-                <exclude name="**/*.jar"/>
-                <exclude name="**/*.class"/>
-            </fileset>
-            <lib dir="${basedir}/web/WEB-INF/lib" />
-            <classes dir="${basedir}/web/WEB-INF/classes" />
-        </war>
-    </target>
-	
     <target name="clean">
         <delete dir="${build.classes.dir}"/>
     </target>
