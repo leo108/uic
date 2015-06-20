@@ -1,8 +1,8 @@
-jdbcUrl = jdbc:mysql://127.0.0.1/uic?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
-user = root
-password =
+jdbcUrl = jdbc:mysql://{DB_HOST}/{DB_NAME}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+user = {DB_USER}
+password = {DB_PWD}
 devMode = false
-memcacheAddrs = 127.0.0.1:11211
+memcacheAddrs = {MC_ADDR}
 canRegister = false
 token =
 
