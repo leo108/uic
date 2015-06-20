@@ -5,6 +5,7 @@
     <property name="source" value="1.7"/>
 	<property name="encoding" value="UTF-8"/>
     <property name="build.classes.dir" value="web/WEB-INF/classes"/>
+    <property name="outputDir" value="${basedir}/output"></property>  
     <property name="warFileName" value="uic.war"></property>  
 	
     <path id="uic.classpath">
@@ -12,7 +13,7 @@
 		<fileset dir="lib" includes="*.jar" />
 		<fileset dir="web/WEB-INF/lib" includes="*.jar" />
     </path>
-
+    <mkdir dir="${outputDir}" />
     <target name="init" depends="clean">
         <mkdir dir="${build.classes.dir}"/>
         <copy includeemptydirs="false" todir="${build.classes.dir}">
@@ -33,8 +34,8 @@
     </target>
 
     <target name="build" depends="compile">
-        <delete dir="${basedir}/${warFileName}" />
-        <war destfile="${basedir}/${warFileName}" webxml="${basedir}/web/WEB-INF/web.xml">
+        <delete dir="${outputDir}/${warFileName}" />
+        <war destfile="${outputDir}/${warFileName}" webxml="${basedir}/web/WEB-INF/web.xml">
             <fileset dir="${basedir}/web">
                 <include name="**/**.*" />
                 <exclude name="**/*.jar"/>
