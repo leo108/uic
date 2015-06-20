@@ -3,4 +3,3 @@
 *.swo
 /var
 /web/WEB-INF/classes
-/web/WEB-INF/config.txt
